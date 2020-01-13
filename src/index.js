@@ -27,6 +27,10 @@ io.on('connection', (socket) => {
         io.emit('message', 'A user has left the chat!')
     })
 
+    socket.on('sendLocation', location => {
+        io.emit('message', `Location: ${location.latitude}, ${location.longitude} or click on the link: https://google.com/maps?q=${location.latitude},${location.longitude}`)
+    })
+
 })
 
 server.listen(PORT, () => console.log(`Server listen on port ${PORT}`))
