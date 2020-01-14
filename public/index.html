@@ -12,24 +12,23 @@
     <div class="chat">
       <div class="chat__sidebar"></div>
       <div class="chat__main">
-        <div id="messages"></div>
+        <div id="messages" class="chat__messages"></div>
 
-        <form id="message-form">
-          Input:<br />
-          <input name="message" placeholder="Message..." />
-          <button id="message-button">Send</button>
-        </form>
-        <button id="send-location">Send location</button>
-
-        <script id="message-template" type="text/html">
-          <div>
-            <p>{{createdAt}} - {{message}}</p>
-          </div>
-        </script>
+        <div class="compose">
+          <form id="message-form">
+            <input name="message" placeholder="Message..." />
+            <button id="message-button">Send</button>
+          </form>
+          <button id="send-location">Send location</button>
+        </div>
       </div>
     </div>
 
-    
+    <script id="message-template" type="text/html">
+      <div>
+        <p>{{createdAt}} - {{message}}</p>
+      </div>
+    </script>
 
     <script id="location-message-template" type="text/html">
       <div>
