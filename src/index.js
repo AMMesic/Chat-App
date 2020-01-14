@@ -35,13 +35,17 @@ io.on('connection', socket => {
 
     socket.join(user.room);
 
-    socket.emit('message', generateMessage('Welcome!'));
+    socket.emit('message', generateMessage('Welcome!', 'Admin'));
     socket.broadcast
       .to(user.room)
       .emit(
         'message',
-        generateMessage(`${user.username} has joined ${user.room}`)
+        generateMessage(`${user.username} has joined ${user.room}`, 'Admin')
       );
+      io.to(user.room).emit('roomData', {
+          room: user.room,
+          users: getUserInRoom(user.room)
+      })
 
     callback();
   });
@@ -77,8 +81,12 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        generateMessage(`${user.username} has left the chat!`)
+        generateMessage(`${user.username} has left the chat!`, 'Admin')
       );
+      io.to(user.room).emit('roomData', {
+        room: user.room,
+        users: getUserInRoom(user.room)
+      })
     }
   });
 });
