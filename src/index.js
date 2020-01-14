@@ -54,7 +54,7 @@ io.on('connection', socket => {
       return callback('Profanity is not allowed!');
     }
 
-    io.to(user.room).emit('message', generateMessage(message));
+    io.to(user.room).emit('message', generateMessage(message, user.username));
     callback();
   });
 
@@ -64,12 +64,13 @@ io.on('connection', socket => {
     io.to(user.room).emit(
       'locationMessage',
       generateLocationMessage(
-        `https://google.com/maps?q=${location.latitude},${location.longitude}`
+        `https://google.com/maps?q=${location.latitude},${location.longitude}`,
+        user.username
       )
     );
     callback();
   });
-  
+
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
 
